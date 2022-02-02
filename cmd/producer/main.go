@@ -11,7 +11,8 @@ func main() {
 
 	producer := NewKafkaProducer()
 	Publish("transferencia", "teste", producer, []byte("transferencia2"), deliveryChan)
-	go DeliveryReport(deliveryChan) //assincrono (Outra thread)
+	//go DeliveryReport(deliveryChan) //assincrono (Outra thread)
+	DeliveryReport(deliveryChan)
 
 	// e := <-deliveryChan //sincrono (Não é muito boa essa forma)
 	// msg := e.(*kafka.Message)
@@ -21,7 +22,7 @@ func main() {
 	// 	fmt.Println("Mensagem enviada:", msg.TopicPartition)
 	// }
 
-	producer.Flush(10000)
+	// producer.Flush(10000)
 }
 
 func NewKafkaProducer() *kafka.Producer{
